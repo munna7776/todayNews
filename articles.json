@@ -1,0 +1,32 @@
+{
+    "status": "ok",
+    "totalResults": 38,
+    "articles": [
+    {
+    "source": {
+    "id": null,
+    "name": "YouTube"
+    },
+    "author": null,
+    "title": "UFC 270: Ngannou vs. Gane Post-Fight Press Conference Live Stream | MMA Fighting - MMAFightingonSBN",
+    "description": "Watch the #UFC270 Post-fight Press Conference live from the Honda Center in Anaheim, CA.Subscribe to MMA Fighting on YouTube: http://goo.gl/dYpsgHSubscribe t...",
+    "url": "https://www.youtube.com/watch?v=zSSlv9lq190",
+    "urlToImage": "https://i.ytimg.com/vi/zSSlv9lq190/maxresdefault_live.jpg",
+    "publishedAt": "2022-01-23T06:18:44Z",
+    "content": null
+    },
+    {
+    "source": {
+    "id": "reuters",
+    "name": "Reuters"
+    },
+    "author": null,
+    "title": "New Zealand PM Jacinda Ardern cancels her wedding amid new Omicron restrictions - Reuters",
+    "description": "New Zealand Prime Minister Jacinda Arden has cancelled her wedding as the nation imposes new restrictions to slow the community spread of the COVID-19 Omicron variant, she told reporters on Sunday.",
+    "url": "https://www.reuters.com/world/asia-pacific/new-zealand-impose-restrictions-after-omicron-community-spread-2022-01-22/",
+    "urlToImage": "https://www.reuters.com/resizer/Wfeu17cFqYyECWPKQtNk8OZq-pk=/1200x628/smart/filters:quality(80)/cloudfront-us-east-2.images.arcpublishing.com/reuters/ZVDTOERRVVIJRMPIC5YZ54PO5Y.jpg",
+    "publishedAt": "2022-01-23T06:18:00Z",
+    "content": "SYDNEY, Jan 23 (Reuters) - New Zealand Prime Minister Jacinda Arden has cancelled her wedding as the nation imposes new restrictions to slow the community spread of the COVID-19 Omicron variant, she … [+2220 chars]"
+    }
+  ]
+  }
