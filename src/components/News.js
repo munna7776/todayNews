@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NewsItem from './NewsItem';
+import Spinner from './Spinner';
 
 export class News extends Component {
   constructor(props){
@@ -7,36 +8,43 @@ export class News extends Component {
     this.state={
       articles:[],
       page:1,
-      totalResults:0
+      totalResults:0,
+      loading:false
     }
   }
   async componentDidMount(){
+     this.setState({loading:true})
      let data = await fetch(`https://newsapi.org/v2/top-headlines?country=in&apiKey=6bbde6f04cc5455790c25f85b159ac1e&page=${this.state.page}&pageSize=${this.props.pageSize}`);
      let parsedData = await data.json();
     //  console.log(parsedData);
      this.setState({
        articles:parsedData.articles,
-       totalResults:parsedData.totalResults
+       totalResults:parsedData.totalResults,
+       loading:false
      })
   }
   handleNextClick = async()=>{
     if(!(this.state.page+1>Math.ceil(this.state.totalResults/5))){
+      this.setState({loading:true})
       let data = await fetch(`https://newsapi.org/v2/top-headlines?country=in&apiKey=6bbde6f04cc5455790c25f85b159ac1e&page=${this.state.page+1}&pageSize=${this.props.pageSize}`);
       let parsedData = await data.json();
       // console.log(parsedData);
       this.setState({
         articles:parsedData.articles,
-        page:this.state.page+1
+        page:this.state.page+1,
+        loading:false
       })
     }
   }
     handlePrevClick = async()=>{
+    this.setState({loading:true})
     let data = await fetch(`https://newsapi.org/v2/top-headlines?country=in&apiKey=6bbde6f04cc5455790c25f85b159ac1e&page=${this.state.page-1}&pageSize=${this.props.pageSize}`);
      let parsedData = await data.json();
     //  console.log(parsedData);
      this.setState({
        articles:parsedData.articles,
-       page:this.state.page-1
+       page:this.state.page-1,
+       loading:false
      })
   }
   render() {
@@ -44,8 +52,9 @@ export class News extends Component {
         <>
           <div className="container">
               <h2 className="text-center my-2">News Today - Top Headlines</h2>
+              {this.state.loading && <Spinner />}
               <div className="row">
-                {this.state.articles.map((element)=>{
+                {!this.state.loading && this.state.articles.map((element)=>{
 
                  return   <div className="col-md-4 mt-3"  key={element.url}>
                               <NewsItem title={element.title}  description={element.description} imageUrl={element.urlToImage} 
