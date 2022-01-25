@@ -12,40 +12,51 @@ export class News extends Component {
       loading:false
     }
   }
+  
   async componentDidMount(){
      this.setState({loading:true})
-     let data = await fetch(`https://newsapi.org/v2/top-headlines?country=in&apiKey=6bbde6f04cc5455790c25f85b159ac1e&page=${this.state.page}&pageSize=${this.props.pageSize}`);
+     this.props.setProgress(30);
+     const url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=6bbde6f04cc5455790c25f85b159ac1e&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+     let data = await fetch(url);
+     this.props.setProgress(60);
      let parsedData = await data.json();
-    //  console.log(parsedData);
+     this.props.setProgress(90);
      this.setState({
        articles:parsedData.articles,
        totalResults:parsedData.totalResults,
        loading:false
      })
+     this.props.setProgress(100);
   }
   handleNextClick = async()=>{
-    if(!(this.state.page+1>Math.ceil(this.state.totalResults/this.props.pageSize))){
       this.setState({loading:true})
-      let data = await fetch(`https://newsapi.org/v2/top-headlines?country=in&apiKey=6bbde6f04cc5455790c25f85b159ac1e&page=${this.state.page+1}&pageSize=${this.props.pageSize}`);
+      this.props.setProgress(30);
+      const url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=6bbde6f04cc5455790c25f85b159ac1e&page=${this.state.page+1}&pageSize=${this.props.pageSize}`;
+      let data = await fetch(url);
+      this.props.setProgress(60);
       let parsedData = await data.json();
-      // console.log(parsedData);
+      this.props.setProgress(90);
       this.setState({
         articles:parsedData.articles,
         page:this.state.page+1,
         loading:false
       })
-    }
+      this.props.setProgress(100);
   }
-    handlePrevClick = async()=>{
+  handlePrevClick = async()=>{
     this.setState({loading:true})
-    let data = await fetch(`https://newsapi.org/v2/top-headlines?country=in&apiKey=6bbde6f04cc5455790c25f85b159ac1e&page=${this.state.page-1}&pageSize=${this.props.pageSize}`);
-     let parsedData = await data.json();
-    //  console.log(parsedData);
-     this.setState({
-       articles:parsedData.articles,
-       page:this.state.page-1,
-       loading:false
-     })
+    this.props.setProgress(30);
+    const url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=6bbde6f04cc5455790c25f85b159ac1e&page=${this.state.page-1}&pageSize=${this.props.pageSize}`;
+     let data = await fetch(url);
+     this.props.setProgress(60);
+    let parsedData = await data.json();
+    this.props.setProgress(90);
+    this.setState({
+      articles:parsedData.articles,
+      page:this.state.page-1,
+      loading:false
+    })
+    this.props.setProgress(100);
   }
   render() {
     return (
@@ -55,7 +66,6 @@ export class News extends Component {
               {this.state.loading && <Spinner />}
               <div className="row">
                 {!this.state.loading && this.state.articles.map((element)=>{
-
                  return   <div className="col-md-4 mt-3"  key={element.url}>
                               <NewsItem title={element.title}  description={element.description} imageUrl={element.urlToImage} 
                                 author={!element.author?"Unknown":element.author} publishedAt={new Date(element.publishedAt).toUTCString()}
@@ -65,7 +75,7 @@ export class News extends Component {
                 })}
               </div>
               <div className="d-flex my-2 justify-content-between">
-                  <button disabled={this.state.page<=1} className="btn btn-primary" onClick={this.handlePrevClick}>&larr; Prev</button>
+                  <button disabled={this.state.page<=1} className="btn btn-primary" onClick={this.handlePrevClick}>&larr; Previous</button>
                   <button disabled={this.state.page+1>Math.ceil(this.state.totalResults/this.props.pageSize)} className="btn btn-primary" onClick={this.handleNextClick}>Next &rarr;</button>
               </div>
           </div>
