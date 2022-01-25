@@ -24,7 +24,7 @@ export class News extends Component {
      })
   }
   handleNextClick = async()=>{
-    if(!(this.state.page+1>Math.ceil(this.state.totalResults/5))){
+    if(!(this.state.page+1>Math.ceil(this.state.totalResults/this.props.pageSize))){
       this.setState({loading:true})
       let data = await fetch(`https://newsapi.org/v2/top-headlines?country=in&apiKey=6bbde6f04cc5455790c25f85b159ac1e&page=${this.state.page+1}&pageSize=${this.props.pageSize}`);
       let parsedData = await data.json();
@@ -66,7 +66,7 @@ export class News extends Component {
               </div>
               <div className="d-flex my-2 justify-content-between">
                   <button disabled={this.state.page<=1} className="btn btn-primary" onClick={this.handlePrevClick}>&larr; Prev</button>
-                  <button disabled={this.state.page+1>Math.ceil(this.state.totalResults/5)} className="btn btn-primary" onClick={this.handleNextClick}>Next &rarr;</button>
+                  <button disabled={this.state.page+1>Math.ceil(this.state.totalResults/this.props.pageSize)} className="btn btn-primary" onClick={this.handleNextClick}>Next &rarr;</button>
               </div>
           </div>
         </>
